@@ -1,4 +1,5 @@
 /** @file AmbientLightDisplay.h
+ *  Copyright 2017 NASA Ames Research Center
  *
  *  This software was created by Terry Welsh for the Intelligent Robotics Group
  *  at NASA Ames Research Center. Copies and derivatives of this file must
@@ -8,8 +9,8 @@
  *  @author Terry Welsh (terence.m.welsh@nasa.gov)
  */
 
-#ifndef AMBIENT_LIGHT_DISPLAY_H
-#define AMBIENT_LIGHT_DISPLAY_H
+#ifndef RVIZ_LIGHTING_AMBIENTLIGHTDISPLAY_H
+#define RVIZ_LIGHTING_AMBIENTLIGHTDISPLAY_H
 
 #include <rviz/display.h>
 
@@ -38,13 +39,13 @@ public:
   virtual ~AmbientLightDisplay();
 
 protected:
-  virtual void onInitialize() override;
+  void onInitialize() override;
 
-  virtual void onEnable() override;
+  void onEnable() override;
 
-  virtual void onDisable() override;
+  void onDisable() override;
 
-  virtual void reset() override;
+  void reset() override;
 
 private Q_SLOTS:
   void updateColor();
@@ -55,6 +56,6 @@ private:
 };
 
 
-} // end namespace rviz_lighting
+}  // end namespace rviz_lighting
 
-#endif
+#endif  // RVIZ_LIGHTING_AMBIENTLIGHTDISPLAY_H

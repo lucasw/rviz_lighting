@@ -1,4 +1,5 @@
 /** @file LightVisual.h
+ *  Copyright 2017 NASA Ames Research Center
  *
  *  This software was created by Terry Welsh for the Intelligent Robotics Group
  *  at NASA Ames Research Center. Copies and derivatives of this file must
@@ -8,8 +9,8 @@
  *  @author Terry Welsh (terence.m.welsh@nasa.gov)
  */
 
-#ifndef LIGHT_VISUAL_H
-#define LIGHT_VISUAL_H
+#ifndef RVIZ_LIGHTING_LIGHTVISUAL_H
+#define RVIZ_LIGHTING_LIGHTVISUAL_H
 
 
 namespace Ogre
@@ -36,7 +37,7 @@ namespace rviz_lighting
 class LightVisual
 {
 public:
-  LightVisual( Ogre::SceneManager* scene_manager, Ogre::SceneNode* parent_node );
+  LightVisual(Ogre::SceneManager* scene_manager, Ogre::SceneNode* parent_node);
 
   virtual ~LightVisual();
 
@@ -57,6 +58,6 @@ private:
 };
 
 
-} // end namespace rviz_lighting
+}  // end namespace rviz_lighting
 
-#endif
+#endif  // RVIZ_LIGHTING_LIGHTVISUAL_H

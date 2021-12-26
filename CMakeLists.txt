@@ -1,11 +1,14 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(rviz_lighting)
 
 add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
+  roslint
   rviz
 )
+
+roslint_cpp()
 
 ## This plugin includes Qt widgets, so we must include Qt.
 ## We'll use the version that rviz used so they are compatible.
@@ -22,30 +25,30 @@ else()
 endif()
 
 catkin_package(
+  CATKIN_DEPENDS
+  rviz
 )
 
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
 if(rviz_QT_VERSION VERSION_LESS "5")
-qt4_wrap_cpp(MOC_FILES
-  src/AmbientLightDisplay.h
-  src/LightDisplay.h
+  qt4_wrap_cpp(MOC_FILES
+    include/${PROJECT_NAME}/AmbientLightDisplay.h
+    include/${PROJECT_NAME}/LightDisplay.h
   )
 else()
-qt5_wrap_cpp(MOC_FILES
-  src/AmbientLightDisplay.h
-  src/LightDisplay.h
+  qt5_wrap_cpp(MOC_FILES
+    include/${PROJECT_NAME}/AmbientLightDisplay.h
+    include/${PROJECT_NAME}/LightDisplay.h
   )
 endif()
 
 add_library(${PROJECT_NAME}
-  src/AmbientLightDisplay.h
   src/AmbientLightDisplay.cpp
-  src/LightDisplay.h
   src/LightDisplay.cpp
-  src/LightVisual.h
   src/LightVisual.cpp
   ${MOC_FILES}
 )
@@ -56,7 +59,19 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # install
+install(TARGETS
+  ${PROJECT_NAME}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+)
+
 install(FILES
   plugin_description.xml
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
+
+install(DIRECTORY config/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config)
+install(DIRECTORY launch/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch)
+install(DIRECTORY urdf/ DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/urdf)
+

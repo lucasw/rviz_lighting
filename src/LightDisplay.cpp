@@ -1,4 +1,5 @@
 /** @file LightDisplay.cpp
+ *  Copyright 2017 NASA Ames Research Center
  *
  *  This software was created by Terry Welsh for the Intelligent Robotics Group
  *  at NASA Ames Research Center. Copies and derivatives of this file must
@@ -8,8 +9,8 @@
  *  @author Terry Welsh (terence.m.welsh@nasa.gov)
  */
 
-#include "LightDisplay.h"
-#include "LightVisual.h"
+#include <rviz_lighting/LightDisplay.h>
+#include <rviz_lighting/LightVisual.h>
 
 #include <rviz/frame_manager.h>
 #include <rviz/visualization_manager.h>
@@ -19,14 +20,19 @@
 #include <rviz/properties/tf_frame_property.h>
 #include <rviz/properties/vector_property.h>
 #include <OgreLight.h>
+#include <string>
 
 
 namespace rviz_lighting
 {
 
 
-using namespace rviz;
-using namespace std;
+using rviz::ColorProperty;
+using rviz::EnumProperty;
+using rviz::FloatProperty;
+using rviz::StatusProperty;
+using rviz::TfFrameProperty;
+using rviz::VectorProperty;
 
 
 LightDisplay::LightDisplay()
@@ -34,7 +40,9 @@ LightDisplay::LightDisplay()
   , frame_position_(0, 0, 0)
 {
   frame_property_ = new TfFrameProperty("Reference Frame", TfFrameProperty::FIXED_FRAME_STRING,
-                                        "The TF frame to which this light is attached. The frame position will have no effect on Directional lights. The frame orientation will have no effect on Point lights.",
+                                        "The TF frame to which this light is attached. The frame position"
+                                       " will have no effect on Directional lights. The frame orientation"
+                                       " will have no effect on Point lights.",
                                         this, NULL, true);
 
   light_type_property_ = new EnumProperty("Light Type", "Directional",
@@ -49,7 +57,9 @@ LightDisplay::LightDisplay()
                                         this, SLOT(updateDiffuseColor()));
 
   specular_property_ = new ColorProperty("Specular Color", QColor(255, 255, 255),
-                                         "Specular color of the light. RViz materials do not use specular, so this will have no effect except maybe when loading a mesh with materials with specular.",
+                                         "Specular color of the light. RViz materials do not use specular,"
+                                         " so this will have no effect except maybe when loading a mesh with"
+                                         " materials with specular.",
                                          this, SLOT(updateSpecularColor()));
 
   direction_property_ = new VectorProperty("Direction", Ogre::Vector3(-1, -1, -1),
@@ -65,7 +75,9 @@ LightDisplay::LightDisplay()
                                             this, SLOT(updateOuterAngle()));
 
   falloff_property_ = new FloatProperty("Falloff", 1.0f,
-                                        "The rate of falloff between the inner and outer cones. 1.0 means a linear falloff, less means slower falloff, higher means faster falloff.",
+                                        "The rate of falloff between the inner and outer cones."
+                                       " 1.0 means a linear falloff, less means slower falloff,"
+                                       " higher means faster falloff.",
                                         this, SLOT(updateFalloff()));
 }
 
@@ -80,7 +92,7 @@ void LightDisplay::update(float wall_dt, float ros_dt)
 
   Ogre::Vector3 position;
   Ogre::Quaternion orientation;
-  if(context_->getFrameManager()->getTransform(frame, ros::Time(), position, orientation))
+  if (context_->getFrameManager()->getTransform(frame, ros::Time(), position, orientation))
   {
     frame_position_ = position;
     frame_orientation_ = orientation;
@@ -91,7 +103,7 @@ void LightDisplay::update(float wall_dt, float ros_dt)
   else
   {
     std::string error;
-    if(context_->getFrameManager()->transformHasProblems(frame, ros::Time(), error))
+    if (context_->getFrameManager()->transformHasProblems(frame, ros::Time(), error))
     {
       setStatus(StatusProperty::Error, "Transform", QString::fromStdString(error));
     }
@@ -99,7 +111,8 @@ void LightDisplay::update(float wall_dt, float ros_dt)
     {
       setStatus(StatusProperty::Error,
                 "Transform",
-                "Could not transform from [" + qframe + "] to Fixed Frame [" + fixed_frame_ + "] for an unknown reason" );
+                "Could not transform from [" + qframe + "] to Fixed Frame ["
+                + fixed_frame_ + "] for an unknown reason");
     }
   }
 }
@@ -133,7 +146,7 @@ void LightDisplay::reset()
 
 void LightDisplay::updateLightType()
 {
-  switch(light_type_property_->getOptionInt())
+  switch (light_type_property_->getOptionInt())
   {
   case Ogre::Light::LT_DIRECTIONAL:
     direction_property_->setHidden(false);
@@ -193,7 +206,7 @@ void LightDisplay::updateFalloff()
 }
 
 
-} // end namespace rviz_lighting
+}  // end namespace rviz_lighting
 
 
 // This must be in the global scope, outside our package's namespace.

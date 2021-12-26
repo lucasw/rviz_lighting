@@ -1,4 +1,5 @@
 /** @file LightDisplay.h
+ *  Copyright 2017 NASA Ames Research Center
  *
  *  This software was created by Terry Welsh for the Intelligent Robotics Group
  *  at NASA Ames Research Center. Copies and derivatives of this file must
@@ -8,8 +9,8 @@
  *  @author Terry Welsh (terence.m.welsh@nasa.gov)
  */
 
-#ifndef LIGHT_DISPLAY_H
-#define LIGHT_DISPLAY_H
+#ifndef RVIZ_LIGHTING_LIGHTDISPLAY_H
+#define RVIZ_LIGHTING_LIGHTDISPLAY_H
 
 #include <rviz/display.h>
 #include <OgreQuaternion.h>
@@ -54,13 +55,13 @@ public:
   virtual void update(float wall_dt, float ros_dt);
 
 protected:
-  virtual void onInitialize() override;
+  void onInitialize() override;
 
-  virtual void onEnable() override;
+  void onEnable() override;
 
-  virtual void onDisable() override;
+  void onDisable() override;
 
-  virtual void reset() override;
+  void reset() override;
 
 private Q_SLOTS:
   void updateLightType();
@@ -90,6 +91,6 @@ private:
 };
 
 
-} // end namespace rviz_lighting
+}  // end namespace rviz_lighting
 
-#endif
+#endif  // RVIZ_LIGHTING_LIGHTDISPLAY_H

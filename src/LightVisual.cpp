@@ -1,4 +1,5 @@
 /** @file LightVisual.cpp
+ *  Copyright 2017 NASA Ames Research Center
  *
  *  This software was created by Terry Welsh for the Intelligent Robotics Group
  *  at NASA Ames Research Center. Copies and derivatives of this file must
@@ -9,19 +10,19 @@
  */
 
 #include <OGRE/OgreSceneManager.h>
-#include "LightVisual.h"
+#include <rviz_lighting/LightVisual.h>
 
 
 namespace rviz_lighting
 {
 
 
-LightVisual::LightVisual( Ogre::SceneManager* scene_manager, Ogre::SceneNode* parent_node )
+LightVisual::LightVisual(Ogre::SceneManager* scene_manager, Ogre::SceneNode* parent_node)
 {
   scene_manager_ = scene_manager;
 
   light_ = scene_manager_->createLight();
-  light_->setType( Ogre::Light::LT_DIRECTIONAL );
+  light_->setType(Ogre::Light::LT_DIRECTIONAL);
   // Initial values for color, direction, position, and other things are set when their respective slots get called
 }
 
@@ -71,4 +72,4 @@ void LightVisual::setFalloff(float falloff)
 }
 
 
-} // end namespace rviz_lighting
+}  // end namespace rviz_lighting

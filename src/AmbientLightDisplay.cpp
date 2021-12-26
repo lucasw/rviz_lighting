@@ -1,4 +1,5 @@
 /** @file AmbientLightDisplay.cpp
+ *  Copyright 2017 NASA Ames Research Center
  *
  *  This software was created by Terry Welsh for the Intelligent Robotics Group
  *  at NASA Ames Research Center. Copies and derivatives of this file must
@@ -8,7 +9,7 @@
  *  @author Terry Welsh (terence.m.welsh@nasa.gov)
  */
 
-#include "AmbientLightDisplay.h"
+#include <rviz_lighting/AmbientLightDisplay.h>
 #include <rviz/properties/color_property.h>
 #include <rviz/display_context.h>
 #include <OGRE/OgreSceneManager.h>
@@ -17,7 +18,7 @@
 namespace rviz_lighting
 {
 
-using namespace rviz;
+using rviz::ColorProperty;
 
 
 AmbientLightDisplay::AmbientLightDisplay()
@@ -25,7 +26,7 @@ AmbientLightDisplay::AmbientLightDisplay()
 {
   color_property_ = new ColorProperty( "Color", QColor( 100, 100, 100 ),
                                              "Color of ambient light.",
-                                             this, SLOT( updateColor() ));
+                                             this, SLOT(updateColor()));
 }
 
 AmbientLightDisplay::~AmbientLightDisplay()
@@ -66,7 +67,7 @@ void AmbientLightDisplay::updateColor()
 }
 
 
-} // end namespace rviz_lighting
+}  // end namespace rviz_lighting
 
 
 // This must be in the global scope, outside our package's namespace.
