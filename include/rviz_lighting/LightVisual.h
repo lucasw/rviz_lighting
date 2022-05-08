@@ -17,7 +17,6 @@ namespace Ogre
 {
 class Light;
 class Quaternion;
-class Vector3;
 }
 
 namespace rviz_lighting
