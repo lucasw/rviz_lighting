@@ -210,5 +210,5 @@ void LightDisplay::updateFalloff()
 
 
 // This must be in the global scope, outside our package's namespace.
-#include <pluginlib/class_list_macros.h>
+#include <pluginlib/class_list_macros.hpp>
 PLUGINLIB_EXPORT_CLASS(rviz_lighting::LightDisplay, rviz::Display)
